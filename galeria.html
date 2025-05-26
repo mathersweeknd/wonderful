@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WONDERFUL</title>
+    <link rel="icon" href="./Fotos/8.png" type="image/png">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-color: #212529;
+            color: white;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            margin-top: 20px;
+        }
+        .gallery {
+            font: bold;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top:10px;
+        }
+        .gallery img {
+            margin-top: 1;
+            width: 200px;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <section class="col-md-12">
+        <div class="row">
+            <header>
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+                    <a class="navbar-brand" href="#">
+                        <img src="/MeuSite/Fotos/coroa.png" alt="Minha Marca" width="40" height="40"
+                            class="d-inline-block align-top">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active"><a class="nav-link" href="index.html">Início</a></li>
+                            <li class="nav-item"><a class="nav-link" href="galeria.html">Wallpapers</a></li>
+                            <li class="nav-item"><a class="nav-link" href="index.html">Sobre</a></li>
+
+                        </ul>
+                        <div class="search-container ml-auto">
+                            <form class="form-inline my-2 my-lg-0">
+                                <div class="input-group">
+                                    <input class="form-control" type="search" placeholder="Pesquisar"
+                                        aria-label="Pesquisar" id="searchInput">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-light" type="button">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+        </div>
+    </section>
+
+<div class="container text-center mt-5">
+    <h1>Galeria de Wallpapers</h1>
+    <div id="gallery" class="gallery"></div>
+</div>
+
+<script>
+    const apiKey = 'aOFJH_XyNb064p5VgloWMpxD4f6m_EQGGCMUJlM3cx0';
+
+    async function fetchWallpapers() {
+        const response = await fetch(`https://api.unsplash.com/photos/random?count=12&query=wallpaper&client_id=${apiKey}`);
+        const wallpapers = await response.json();
+
+        const gallery = document.getElementById('gallery');
+        gallery.innerHTML = wallpapers.map(wallpaper => `
+            <a href="${wallpaper.links.html}" target="_blank">
+                <img src="${wallpaper.urls.small}" alt="${wallpaper.alt_description || 'Wallpaper'}">
+            </a>
+        `).join('');
+    }
+
+    document.addEventListener("DOMContentLoaded", fetchWallpapers);
+    
+    document.getElementById('perfilBtn').addEventListener('click', function () {
+    $('#loginModal').modal('show');
+});
+</script>
+
+</body>
+</html>
